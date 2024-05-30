@@ -12,11 +12,8 @@ pipeline {
                 // Get some code from a GitHub repository
                 git 'https://github.com/jglick/simple-maven-project-with-tests.git'
 
-                // Run Maven on a Unix agent.
-                //sh "mvn -Dmaven.test.failure.ignore=true clean package"
-
-                // To run Maven on a Windows agent, use
-                 bat "mvn -Dmaven.test.failure.ignore=true clean package"
+                // Run Maven on a Windows agent.
+                bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
 
             post {
@@ -28,10 +25,11 @@ pipeline {
                 }
             }
         }
-        stage {
 
-        build job: 'code-analyzer'
-
+        stage('Run Code Analyzer') {
+            steps {
+                build job: 'code-analyzer'
+            }
         }
     }
 }
