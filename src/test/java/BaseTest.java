@@ -11,18 +11,24 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 import main.java.utils.Constants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
 import java.io.File;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.time.Duration;
 
 public class BaseTest {
 
     public static WebDriver driver;
-
     public ExtentHtmlReporter htmlReporter;
     public static ExtentReports extent;
     public static ExtentTest logger;
@@ -47,10 +53,10 @@ public class BaseTest {
 
     @BeforeMethod
     @Parameters(value={"browserName"}) //we will fetch the browser name from testng.xml
-    public void beforeMethodMethod(String browserName, Method testMethod){
+    public void beforeMethodMethod(String browserName, Method testMethod) throws MalformedURLException, URISyntaxException {
         logger = extent.createTest(testMethod.getName());
         setupDriver(browserName);
-        driver.manage().window().maximize();
+       driver.manage().window().maximize();
         driver.get(Constants.url); // we are passing the url here. we will be using the utils package and creating an
         // interface(Constants) because all the datatypes we put in interface will be automatically public static and final.
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
@@ -89,9 +95,11 @@ public class BaseTest {
 
     }
 
-    public void setupDriver(String browserName){
+    //Below code to be used when run locally
+    public void setupDriver(String browserName) throws MalformedURLException {
 
-        if(browserName.equalsIgnoreCase("chrome")){
+        if (browserName.equalsIgnoreCase("chrome")) {
+
             // Set the path to the chromedriver executable
             System.setProperty("webdriver.chrome.driver", "C:/Java and Selenium Workplace/rbc_framework/binaries/chromedriver.exe");
 
@@ -115,9 +123,9 @@ public class BaseTest {
         }
     }
 
-   /* System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + File.separator + "drivers" + File.separator + "chromedriver");
-    driver = new ChromeDriver()*/
 
-    /*System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + File.separator + "binaries" + File.separator + "geckodriver.exe");
-    driver = new FirefoxDriver();*/
-}
+
+
+        }
+
+

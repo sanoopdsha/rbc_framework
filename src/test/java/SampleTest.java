@@ -18,9 +18,18 @@ public class SampleTest extends BaseTest {
         loginPageEvents
                 .verifySignInTextDisplayed()
                 .enterEmailId();
+    }
 
+    @Test(description = "Check successful entry of email id")
+    public void checkingSuccessfulLogin2() throws InterruptedException {
+        HomePageEvents homePageEvents = new HomePageEvents();
+        homePageEvents
+                .clickOnSignInButton();
 
+        LoginPageEvents loginPageEvents = new LoginPageEvents();
+        loginPageEvents
+                .verifySignInTextDisplayed()
+                .enterEmailId();
+    }
 
-
-
-}}
+}
