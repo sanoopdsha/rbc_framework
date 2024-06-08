@@ -46,7 +46,7 @@ public class BaseTest {
         extent = new ExtentReports();
         extent.attachReporter(htmlReporter);
         extent.setSystemInfo("Automation Tester","Sanoop Sha");
-
+ 
     }
 
 
